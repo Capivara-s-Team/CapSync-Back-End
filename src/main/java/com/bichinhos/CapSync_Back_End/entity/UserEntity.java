@@ -1,11 +1,14 @@
 package com.bichinhos.CapSync_Back_End.entity;
 
+import com.bichinhos.CapSync_Back_End.enumFields.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,8 +22,11 @@ import java.util.UUID;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id"
 )
-@Table(name = "user")
-public class User {
+public class UserEntity {
+
+    @Autowired
+    Instant instant;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -30,25 +36,39 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    private String password;
     @Column(unique = true)
+    private String password;
+
     private String cellphone;
 
-    private EnumSquad enumSquad;
+    private String squad;
 
-    private EnumRole enumRole;
+    private String role;
+
     @Column(unique = true)
     private String linkedin;
+
     @Column(unique = true)
     private String discord;
 
-    private String autoDeclaration;
+    @Column(unique = true)
+    private String userPhoto;
 
-    private EnumGender enumGender;
+    private String autoRacialDeclaration;
 
-    private EnumStatus enumStatus;
+    private Status status;
+
+    private Gender gender;
+
+    private Seniority seniority;
 
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = Instant.now();
+        updatedAt = Instant.now();
+    }
 }
