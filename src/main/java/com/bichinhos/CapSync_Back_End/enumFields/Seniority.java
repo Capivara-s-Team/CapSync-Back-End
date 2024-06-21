@@ -1,5 +1,5 @@
 package com.bichinhos.CapSync_Back_End.enumFields;
 
-public enum EnumSeniority {
+public enum Seniority {
 JUNIOR, PLENO, SENIOR
 }

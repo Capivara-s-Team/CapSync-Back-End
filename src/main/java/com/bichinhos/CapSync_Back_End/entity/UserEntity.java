@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -20,8 +22,11 @@ import java.util.UUID;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id"
 )
-@Table(name = "user")
-public class User {
+public class UserEntity {
+
+    @Autowired
+    Instant instant;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -31,14 +36,14 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    private String password;
     @Column(unique = true)
+    private String password;
 
     private String cellphone;
-    @Enumerated(EnumType.STRING)
-    private EnumSquad enumSquad;
-    @Enumerated(EnumType.STRING)
-    private EnumRole enumRole;
+
+    private String squad;
+
+    private String role;
 
     @Column(unique = true)
     private String linkedin;
@@ -49,15 +54,21 @@ public class User {
     @Column(unique = true)
     private String userPhoto;
 
-    private String autoDeclaration;
+    private String autoRacialDeclaration;
 
-    private EnumGender enumGender;
+    private Status status;
 
-    private EnumStatus enumStatus;
+    private Gender gender;
 
-    private EnumSeniority enumSeniority;
+    private Seniority seniority;
 
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = Instant.now();
+        updatedAt = Instant.now();
+    }
 }
