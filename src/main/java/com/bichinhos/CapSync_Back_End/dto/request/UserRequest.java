@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class UserRequest {
 
+
     @Size(min = 5, max = 60, message = "o nome não pode ter menos que 5 caracteres ou mais que 60")
     @NotBlank
     private String name;
@@ -33,12 +34,13 @@ public class UserRequest {
     @NotBlank
     private String role;
     @NotBlank
-    @Pattern(regexp = Regex.LINK)
+    @Pattern(regexp = Regex.LINKEDIN, message = "O padrão de perfil do linkedin deve ser, 'www.linkedin.com/in/gustavo-brito2000'")
     private String linkedin;
     @NotBlank
-    @Pattern(regexp = Regex.DISCORD)
+    @Pattern(regexp = Regex.DISCORD, message = "O padrão de nome de usuario do Discord deve ser como 'Nome do usuario#1234'")
     private String discord;
-    @Pattern(regexp = Regex.ONLY_LETTERS)
+    @Pattern(regexp = Regex.ASSETS_PATHS,
+            message = "O caminho para a foto deve seguir o padrão de src/assets/'nome da pessoa', as extensões aceitas são, svg ou png ou jpeg, não aceitamos simbolos no nome das fotos")
     private String userPhoto;
 
     private String autoRacialDeclaration;
