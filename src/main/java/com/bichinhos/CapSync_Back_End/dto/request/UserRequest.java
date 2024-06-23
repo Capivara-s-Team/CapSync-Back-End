@@ -9,11 +9,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class UserRequest {
-
 
     @Size(min = 5, max = 60, message = "o nome não pode ter menos que 5 caracteres ou mais que 60")
     @NotBlank
@@ -27,7 +25,7 @@ public class UserRequest {
     )
     private String password;
     @NotBlank
-    @Pattern(regexp = Regex.CELLPHONE)
+    @Pattern(regexp = Regex.CELLPHONE_REGEX, message = "O numero deve ter um padrão de +55 DDD XXXXX XXXX")
     private String cellphone;
     @NotBlank
     private String squad;
