@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.time.Instant;
 import java.util.UUID;
@@ -24,14 +23,13 @@ import java.util.UUID;
 )
 public class UserEntity {
 
-    @Autowired
-    Instant instant;
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;
+
+    private String surname;
 
     @Column(unique = true)
     private String email;

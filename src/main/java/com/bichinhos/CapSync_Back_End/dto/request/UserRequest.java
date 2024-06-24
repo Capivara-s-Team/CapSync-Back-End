@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 public class UserRequest {
@@ -16,6 +17,9 @@ public class UserRequest {
     @Size(min = 5, max = 60, message = "o nome não pode ter menos que 5 caracteres ou mais que 60")
     @NotBlank
     private String name;
+    @Size(min =  5, max = 60, message = "o sobrenome não pode ter menos que 5 caracteres ou mais que 60")
+    @NotBlank
+    private String surname;
     @Email
     @NotBlank(message = "O email tem que ser valido")
     private String email;

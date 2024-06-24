@@ -11,6 +11,8 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(userRequest.getName());
 
+        userEntity.setSurname(userRequest.getSurname());
+
         userEntity.setEmail(userRequest.getEmail());
 
         userEntity.setPassword(userRequest.getPassword());
@@ -41,6 +43,8 @@ public class UserMapper {
     public UserResponse transformEntityToResponse(UserEntity userEntity){
         UserResponse userResponse = new UserResponse();
         userResponse.setName(userEntity.getName());
+
+        userResponse.setSurname(userEntity.getSurname());
 
         userResponse.setEmail(userEntity.getEmail());
 
