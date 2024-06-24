@@ -34,7 +34,6 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
     private String password;
 
     private String cellphone;
