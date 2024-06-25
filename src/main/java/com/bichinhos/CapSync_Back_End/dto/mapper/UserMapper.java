@@ -7,65 +7,37 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public UserEntity transformRequestToEntity(UserRequest userRequest){
-        UserEntity userEntity = new UserEntity();
-        userEntity.setName(userRequest.getName());
-
-        userEntity.setEmail(userRequest.getEmail());
-
-        userEntity.setPassword(userRequest.getPassword());
-
-        userEntity.setCellphone(userRequest.getCellphone());
-
-        userEntity.setSquad(userRequest.getSquad());
-
-        userEntity.setRole(userRequest.getRole());
-
-        userEntity.setLinkedin(userRequest.getLinkedin());
-
-        userEntity.setDiscord(userRequest.getDiscord());
-
-        userEntity.setUserPhoto(userRequest.getUserPhoto());
-
-        userEntity.setAutoRacialDeclaration(userRequest.getAutoRacialDeclaration());
-
-        userEntity.setGender(userRequest.getGender());
-
-        userEntity.setSeniority(userRequest.getSeniority());
-
-        userEntity.setStatus(userRequest.getStatus());
-
-        return userEntity;
+    public static UserEntity transformRequestToEntity(UserRequest userRequest){
+        return UserEntity.builder()
+                .name(userRequest.getName())
+                .surname(userRequest.getSurname())
+                .email(userRequest.getEmail())
+                .password(userRequest.getPassword())
+                .cellphone(userRequest.getCellphone())
+                .squad(userRequest.getSquad())
+                .role(userRequest.getRole())
+                .linkedin(userRequest.getLinkedin())
+                .discord(userRequest.getDiscord())
+                .userPhoto(userRequest.getUserPhoto())
+                .autoRacialDeclaration(userRequest.getAutoRacialDeclaration())
+                .gender(userRequest.getGender())
+                .seniority(userRequest.getSeniority())
+                .build();
     }
 
-    public UserResponse transformEntityToResponse(UserEntity userEntity){
-        UserResponse userResponse = new UserResponse();
-        userResponse.setName(userEntity.getName());
-
-        userResponse.setEmail(userEntity.getEmail());
-
-        userResponse.setPassword(userEntity.getPassword());
-
-        userResponse.setCellphone(userEntity.getCellphone());
-
-        userResponse.setSquad(userEntity.getSquad());
-
-        userResponse.setRole(userEntity.getRole());
-
-        userResponse.setLinkedin(userEntity.getLinkedin());
-
-        userResponse.setDiscord(userEntity.getDiscord());
-
-        userResponse.setUserPhoto(userEntity.getUserPhoto());
-
-        userResponse.setAutoRacialDeclaration(userEntity.getAutoRacialDeclaration());
-
-        userResponse.setGender(userEntity.getGender());
-
-        userResponse.setSeniority(userEntity.getSeniority());
-
-        userResponse.setStatus(userEntity.getStatus());
-
-        return userResponse;
+    public static UserResponse transformEntityToResponse(UserEntity userEntity){
+        return UserResponse.builder()
+                .name(userEntity.getName())
+                .surname(userEntity.getSurname())
+                .cellphone(userEntity.getCellphone())
+                .squad(userEntity.getSquad())
+                .role(userEntity.getRole())
+                .linkedin(userEntity.getLinkedin())
+                .discord(userEntity.getDiscord())
+                .userPhoto(userEntity.getUserPhoto())
+                .autoRacialDeclaration(userEntity.getAutoRacialDeclaration())
+                .gender(userEntity.getGender())
+                .seniority(userEntity.getSeniority())
+                .build();
     }
 }

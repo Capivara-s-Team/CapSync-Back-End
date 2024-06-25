@@ -2,18 +2,17 @@ package com.bichinhos.CapSync_Back_End.dto.response;
 
 import com.bichinhos.CapSync_Back_End.enumFields.Gender;
 import com.bichinhos.CapSync_Back_End.enumFields.Seniority;
-import com.bichinhos.CapSync_Back_End.enumFields.Status;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Builder
+@Data
 public class UserResponse {
+
     private String name;
 
-    private String email;
-
-    private String password;
+    private String surname;
 
     private String cellphone;
 
@@ -28,8 +27,6 @@ public class UserResponse {
     private String userPhoto;
 
     private String autoRacialDeclaration;
-
-    private Status status;
 
     private Gender gender;
 
