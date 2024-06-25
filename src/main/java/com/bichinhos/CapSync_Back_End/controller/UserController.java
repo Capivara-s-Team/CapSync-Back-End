@@ -1,33 +1,25 @@
 package com.bichinhos.CapSync_Back_End.controller;
 
 
-import com.bichinhos.CapSync_Back_End.dto.mapper.UserMapper;
 import com.bichinhos.CapSync_Back_End.dto.request.UserRequest;
-import com.bichinhos.CapSync_Back_End.entity.UserEntity;
 import com.bichinhos.CapSync_Back_End.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
-
-import java.util.Optional;
-import java.util.UUID;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    UserMapper userMapper;
+
     @Autowired
     UserServiceImpl userServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody @Valid UserRequest userRequest){
-        UserEntity transformedRequestToEntity = this.userMapper.transformRequestToEntity(userRequest);
-        UserEntity entityCreatedFromService = this.userServiceImpl.createUser(transformedRequestToEntity);
-        return ResponseEntity.ok().body(this.userMapper.transformEntityToResponse(entityCreatedFromService));
+        return ResponseEntity.ok().body(this.userServiceImpl.createUser(userRequest));
     }
 
     @GetMapping
@@ -40,19 +32,16 @@ public class UserController {
     public ResponseEntity<?> getUserById(@PathVariable(value = "id") UUID id){
         return ResponseEntity.ok(this.userServiceImpl.getUserById(id));
     }
+// todo: fazer a rota de patch
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<?> patchUserById(@PathVariable(value = "id") UUID id){
+//
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUserById(@PathVariable(value = "id") UUID id, @RequestBody UserRequest userRequest){
-        // todo: após a tabela de stacks estiver pronta, fazer a atualização de stacks
-        Optional<UserRequest> userRequestOptional = Optional.ofNullable(userRequest);
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserPhoto(userRequestOptional.get().getUserPhoto());
-        userEntity.setName(userRequestOptional.get().getName());
-        userEntity.setSurname(userRequestOptional.get().getSurname());
-        userEntity.setLinkedin(userRequestOptional.get().getLinkedin());
-        userEntity.setDiscord(userRequestOptional.get().getDiscord());
-        userEntity.setCellphone(userRequestOptional.get().getCellphone());
-        return ResponseEntity.ok().body(this.userServiceImpl.updateEntityById(id, userEntity));
+        // todo: após a tabela de stacks estiver pronta, fazer a atualização de stacks e passar essa validação para mapper
+        return ResponseEntity.ok().body(this.userServiceImpl.updateEntityById(id, userRequest));
     }
 
     @DeleteMapping("/{id}")

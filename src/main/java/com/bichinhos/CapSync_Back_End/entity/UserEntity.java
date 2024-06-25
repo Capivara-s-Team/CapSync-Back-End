@@ -1,22 +1,26 @@
 package com.bichinhos.CapSync_Back_End.entity;
 
-import com.bichinhos.CapSync_Back_End.enumFields.*;
+import com.bichinhos.CapSync_Back_End.enumFields.Gender;
+import com.bichinhos.CapSync_Back_End.enumFields.Seniority;
+import com.bichinhos.CapSync_Back_End.enumFields.Status;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.UUID;
 
-
+@Builder
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id"
@@ -58,14 +62,8 @@ public class UserEntity {
     private Gender gender;
 
     private Seniority seniority;
-
+    @CreationTimestamp
     private Instant createdAt;
-
+    @UpdateTimestamp
     private Instant updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = Instant.now();
-        updatedAt = Instant.now();
-    }
 }

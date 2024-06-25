@@ -44,10 +44,8 @@ public class UserRequest {
     @Pattern(regexp = Regex.ASSETS_PATHS,
             message = "O caminho para a foto deve seguir o padrão de src/assets/'nome da pessoa', as extensões aceitas são, svg ou png ou jpeg, não aceitamos simbolos no nome das fotos")
     private String userPhoto;
-
+    @NotBlank
     private String autoRacialDeclaration;
-
-    private Status status;
 
     private Gender gender;
 

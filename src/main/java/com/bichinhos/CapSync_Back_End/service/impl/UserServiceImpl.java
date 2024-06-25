@@ -1,27 +1,30 @@
 package com.bichinhos.CapSync_Back_End.service.impl;
 
+import com.bichinhos.CapSync_Back_End.dto.mapper.UserMapper;
+import com.bichinhos.CapSync_Back_End.dto.request.UserRequest;
+import com.bichinhos.CapSync_Back_End.dto.response.UserResponse;
 import com.bichinhos.CapSync_Back_End.entity.UserEntity;
 import com.bichinhos.CapSync_Back_End.repository.IUserRepository;
 import com.bichinhos.CapSync_Back_End.service.IUserService;
-
-import java.util.UUID;
-
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    IUserRepository iUserRepository;
+
+    private final IUserRepository iUserRepository;
 
     @Override
-    public UserEntity createUser(UserEntity userEntity) {
-        return this.iUserRepository.save(userEntity);
+    public UserResponse createUser(UserRequest userRequest) {
+        UserEntity userEntity = UserMapper.transformRequestToEntity(userRequest);
+        UserEntity userCreated = this.iUserRepository.save(userEntity);
+        return UserMapper.transformEntityToResponse(userCreated);
     }
 
     @Override
@@ -35,31 +38,30 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserEntity updateEntityById(UUID id, UserEntity userEntity) {
+    public UserResponse updateEntityById(UUID id, UserRequest userRequest) {
         Optional<UserEntity> userToUpdate = this.iUserRepository.findById(id);
         UserEntity existentUserEntity = userToUpdate.orElseThrow(() ->
                 new EntityNotFoundException("User do ID " + id + " não encontrado."));
-
-        if (userEntity.getName() != null){
-            existentUserEntity.setName(userEntity.getName());
+        if (userRequest.getName() != null){
+            existentUserEntity.setName(userRequest.getName());
         }
-        if (userEntity.getUserPhoto() != null){
-            existentUserEntity.setUserPhoto(userEntity.getUserPhoto());
+        if (userRequest.getUserPhoto() != null){
+            existentUserEntity.setUserPhoto(userRequest.getUserPhoto());
         }
-        if (userEntity.getSurname() != null){
-            existentUserEntity.setSurname(userEntity.getSurname());
+        if (userRequest.getSurname() != null){
+            existentUserEntity.setSurname(userRequest.getSurname());
         }
-        if (userEntity.getLinkedin() != null){
-            existentUserEntity.setLinkedin(userEntity.getLinkedin());
+        if (userRequest.getLinkedin() != null){
+            existentUserEntity.setLinkedin(userRequest.getLinkedin());
         }
-        if (userEntity.getDiscord() != null){
-            existentUserEntity.setDiscord(userEntity.getDiscord());
+        if (userRequest.getDiscord() != null){
+            existentUserEntity.setDiscord(userRequest.getDiscord());
         }
-        if (userEntity.getCellphone() != null){
-            existentUserEntity.setCellphone(userEntity.getCellphone());
+        if (userRequest.getCellphone() != null){
+            existentUserEntity.setCellphone(userRequest.getCellphone());
         }
-
-        return this.iUserRepository.save(existentUserEntity);
+        UserEntity userEntityUpdated = this.iUserRepository.save(existentUserEntity);
+        return UserMapper.transformEntityToResponse(userEntityUpdated);
     }
 
     @Override
