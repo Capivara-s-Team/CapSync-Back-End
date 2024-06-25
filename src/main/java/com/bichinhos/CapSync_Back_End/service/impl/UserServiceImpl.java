@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
         if (userRequest.getDiscord() != null){
             existentUserEntity.setDiscord(userRequest.getDiscord());
         }
-        if (userRequest.getCellphone() != null){
+        if (userRequest.getCellphone() != null) {
             existentUserEntity.setCellphone(userRequest.getCellphone());
         }
         UserEntity userEntityUpdated = this.iUserRepository.save(existentUserEntity);

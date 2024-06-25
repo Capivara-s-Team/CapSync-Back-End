@@ -49,7 +49,6 @@ public class UserEntity {
     @Column(unique = true)
     private String linkedin;
 
-    @Column(unique = true)
     private String discord;
 
     @Column(unique = true)

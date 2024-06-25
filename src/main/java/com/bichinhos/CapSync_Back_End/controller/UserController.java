@@ -39,7 +39,7 @@ public class UserController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUserById(@PathVariable(value = "id") UUID id, @RequestBody UserRequest userRequest){
+    public ResponseEntity<?> updateUserById(@PathVariable(value = "id") UUID id, @RequestBody @Valid UserRequest userRequest){
         // todo: após a tabela de stacks estiver pronta, fazer a atualização de stacks e passar essa validação para mapper
         return ResponseEntity.ok().body(this.userServiceImpl.updateEntityById(id, userRequest));
     }
