@@ -22,14 +22,14 @@ public class StackController {
     @GetMapping
     public ResponseEntity<Page<StackResponse>> getAllStacks(Pageable pageable){
 
-        Page<StackResponse> users = stackService.getAllUsers(pageable);
+        Page<StackResponse> users = stackService.getAllStacks(pageable);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<StackResponse> getStackById(@PathVariable(value = "id") Long id){
 
-        StackResponse user = stackService.getUserById(id);
+        StackResponse user = stackService.getStackById(id);
         return ResponseEntity.ok(user);
     }
 
@@ -44,7 +44,7 @@ public class StackController {
     @PutMapping("/{id}")
     public ResponseEntity<StackResponse> updateStack(@PathVariable(name = "id") Long id, @RequestBody StackRequest stackRequest) {
 
-        StackResponse stackResponse = stackService.updateEntityById(id, stackRequest);
+        StackResponse stackResponse = stackService.updateStackById(id, stackRequest);
 
         return ResponseEntity.ok(stackResponse);
     }
@@ -52,7 +52,7 @@ public class StackController {
     @DeleteMapping
     public ResponseEntity<Void> deleteStackById(@PathVariable(value = "id") Long id){
 
-        stackService.deleteEntityById(id);
+        stackService.deleteStackById(id);
         return ResponseEntity.noContent().build();
     }
 

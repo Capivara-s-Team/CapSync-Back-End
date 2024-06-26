@@ -30,14 +30,14 @@ public class StackServiceImpl implements IStackService {
     }
 
     @Override
-    public Page<StackResponse> getAllUsers(Pageable pageable) {
+    public Page<StackResponse> getAllStacks(Pageable pageable) {
 
         Page<StackEntity> stacks = iStackRepository.findAll(pageable);
         return stacks.map(StackMapper::transformEntityToResponse);
     }
 
     @Override
-    public StackResponse getUserById(Long id) {
+    public StackResponse getStackById(Long id) {
 
         StackEntity stackEntity = findByIdOrThrowException(id);
 
@@ -45,7 +45,7 @@ public class StackServiceImpl implements IStackService {
     }
 
     @Override
-    public StackResponse updateEntityById(Long id, StackRequest stackRequest) {
+    public StackResponse updateStackById(Long id, StackRequest stackRequest) {
 
         StackEntity stackEntity = findByIdOrThrowException(id);
 
@@ -57,7 +57,7 @@ public class StackServiceImpl implements IStackService {
     }
 
     @Override
-    public void deleteEntityById(Long id) {
+    public void deleteStackById(Long id) {
         iStackRepository.deleteById(id);
     }
 

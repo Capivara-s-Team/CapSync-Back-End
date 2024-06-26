@@ -10,9 +10,9 @@ import java.util.List;
 public interface IStackService {
 
     StackResponse createStack(StackRequest stackRequest);
-    Page<StackResponse> getAllUsers(Pageable pageable);
-    StackResponse getUserById(Long id);
-    StackResponse updateEntityById(Long id, StackRequest stackRequest);
-    void deleteEntityById(Long id);
+    Page<StackResponse> getAllStacks(Pageable pageable);
+    StackResponse getStackById(Long id);
+    StackResponse updateStackById(Long id, StackRequest stackRequest);
+    void deleteStackById(Long id);
 
 }
