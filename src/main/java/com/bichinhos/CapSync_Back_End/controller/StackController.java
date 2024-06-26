@@ -49,7 +49,7 @@ public class StackController {
         return ResponseEntity.ok(stackResponse);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStackById(@PathVariable(value = "id") Long id){
 
         stackService.deleteStackById(id);
