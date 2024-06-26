@@ -1,34 +1,33 @@
 package com.bichinhos.CapSync_Back_End.dto.response;
 
 import com.bichinhos.CapSync_Back_End.enumFields.Gender;
+import com.bichinhos.CapSync_Back_End.enumFields.Role;
 import com.bichinhos.CapSync_Back_End.enumFields.Seniority;
 import lombok.Builder;
-import lombok.Data;
-
 
 @Builder
-@Data
-public class UserResponse {
 
-    private String name;
+public record UserResponse (
 
-    private String surname;
+     String name,
 
-    private String cellphone;
+     String surname,
 
-    private String squad;
+     String cellphone,
 
-    private String role;
+     String squad,
 
-    private String linkedin;
+     String linkedin,
 
-    private String discord;
+     String discord,
 
-    private String userPhoto;
+     String userPhoto,
 
-    private String autoRacialDeclaration;
+     String autoRacialDeclaration,
 
-    private Gender gender;
+     Gender gender,
 
-    private Seniority seniority;
-}
+     Seniority seniority,
+
+     Role role
+){}

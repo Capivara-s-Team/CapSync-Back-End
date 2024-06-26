@@ -17,13 +17,14 @@ public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody @Valid UserRequest userRequest){
-        return ResponseEntity.ok().body(this.userServiceImpl.createUser(userRequest));
+        this.userServiceImpl.createUser(userRequest);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<?> getUsers(){
+    public ResponseEntity<?> getUsers() {
         // todo: criar um mapper que transforme a lista de usuarios retornada do banco em um objeto de resposta.
         return ResponseEntity.ok().body(this.userServiceImpl.getAllUsers());
     }
@@ -32,11 +33,10 @@ public class UserController {
     public ResponseEntity<?> getUserById(@PathVariable(value = "id") UUID id){
         return ResponseEntity.ok(this.userServiceImpl.getUserById(id));
     }
-// todo: fazer a rota de patch
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> patchUserById(@PathVariable(value = "id") UUID id){
-//
-//    }
+    // todo: fazer a rota de patch
+    //    @PatchMapping("/{id}")
+    //    public ResponseEntity<?> patchUserById(@PathVariable(value = "id") UUID id){
+    //    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUserById(@PathVariable(value = "id") UUID id, @RequestBody @Valid UserRequest userRequest){

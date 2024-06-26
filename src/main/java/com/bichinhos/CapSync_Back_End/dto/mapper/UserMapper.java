@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     public static UserEntity transformRequestToEntity(UserRequest userRequest){
         return UserEntity.builder()
-                .name(userRequest.getName())
-                .surname(userRequest.getSurname())
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .cellphone(userRequest.getCellphone())
-                .squad(userRequest.getSquad())
-                .role(userRequest.getRole())
-                .linkedin(userRequest.getLinkedin())
-                .discord(userRequest.getDiscord())
-                .userPhoto(userRequest.getUserPhoto())
-                .autoRacialDeclaration(userRequest.getAutoRacialDeclaration())
-                .gender(userRequest.getGender())
-                .seniority(userRequest.getSeniority())
+                .name(userRequest.name())
+                .surname(userRequest.surname())
+                .email(userRequest.email())
+                .password(userRequest.password())
+                .cellphone(userRequest.cellphone())
+                .squad(userRequest.squad())
+                .role(userRequest.role())
+                .linkedin(userRequest.linkedin())
+                .discord(userRequest.discord())
+                .userPhoto(userRequest.userPhoto())
+                .autoRacialDeclaration(userRequest.autoRacialDeclaration())
+                .gender(userRequest.gender())
+                .seniority(userRequest.seniority())
                 .build();
     }
 
@@ -40,4 +40,9 @@ public class UserMapper {
                 .seniority(userEntity.getSeniority())
                 .build();
     }
+
+//    public static List<UserResponse> transformEntityToResponse(List<UserEntity> userEntityList){
+//        return Stream.of(userEntityList).map()
+//
+//    }
 }
