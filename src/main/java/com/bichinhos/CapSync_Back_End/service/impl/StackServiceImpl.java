@@ -23,6 +23,13 @@ public class StackServiceImpl implements IStackService {
     @Override
     public StackResponse createStack(StackRequest stackRequest) {
 
+        Optional<StackEntity> stackOptional = iStackRepository.findByName(stackRequest.name());
+        if (stackOptional.isPresent()){
+
+            //todo Mudar o tipo da exception
+            throw new RuntimeException("Stack already exists");
+        }
+
         StackEntity stackEntity = StackMapper.transformRequestToEntity(stackRequest);
         StackEntity stackSaved = iStackRepository.save(stackEntity);
 
@@ -58,13 +65,17 @@ public class StackServiceImpl implements IStackService {
 
     @Override
     public void deleteStackById(Long id) {
+
+        findByIdOrThrowException(id);
         iStackRepository.deleteById(id);
+
     }
 
     private StackEntity findByIdOrThrowException(Long id){
 
         Optional<StackEntity> optionalStack = iStackRepository.findById(id);
 
+        //todo Mudar o tipo da exception
         return optionalStack.orElseThrow(() ->
                 new EntityNotFoundException("Stack de ID " + id + " não encontrado.")
         );
