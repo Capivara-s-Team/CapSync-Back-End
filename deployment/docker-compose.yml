@@ -1,0 +1,29 @@
+version: "3.8"
+
+networks:
+  backend:
+
+services:
+  postgres-database:
+    image: postgres
+    container_name: 'db-cap-sync'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+    networks:
+      - backend
+
+  capsyncbackend:
+    image: yuriesena/capsync-back-end
+    depends_on:
+      - postgres-database
+    container_name: 'api-cap-sync'
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-database:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
