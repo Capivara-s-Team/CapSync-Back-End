@@ -55,7 +55,7 @@ public class SquadServiceImpl implements ISquadService {
         SquadEntity squad = findByIdOrThrowException(id);
 
         if (squadRequest.name() != null){
-            squad.setName(squad.getName());
+            squad.setName(squadRequest.name());
         }
 
         SquadEntity squadUpdated = iSquadRepository.save(squad);
