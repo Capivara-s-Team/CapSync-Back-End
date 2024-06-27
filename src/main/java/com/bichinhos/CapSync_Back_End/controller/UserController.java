@@ -5,9 +5,11 @@ import com.bichinhos.CapSync_Back_End.dto.request.UserRequest;
 import com.bichinhos.CapSync_Back_End.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -20,13 +22,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody @Valid UserRequest userRequest){
         this.userServiceImpl.createUser(userRequest);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(URI.create("register/user")).build();
     }
 
     @GetMapping
     public ResponseEntity<?> getUsers() {
-        // todo: criar um mapper que transforme a lista de usuarios retornada do banco em um objeto de resposta.
-        return ResponseEntity.ok().body(this.userServiceImpl.getAllUsers());
+        return ResponseEntity.ok().body(this.userServiceImpl.getAllUsers(Pageable.ofSize(5)));
     }
 
     @GetMapping("/{id}")
@@ -47,6 +48,6 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable(value = "id") UUID id){
         this.userServiceImpl.deleteEntityById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

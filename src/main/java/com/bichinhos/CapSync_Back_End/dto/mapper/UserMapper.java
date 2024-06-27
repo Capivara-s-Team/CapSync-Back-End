@@ -27,9 +27,11 @@ public class UserMapper {
 
     public static UserResponse transformEntityToResponse(UserEntity userEntity){
         return UserResponse.builder()
+                .id(userEntity.getId())
                 .name(userEntity.getName())
                 .surname(userEntity.getSurname())
                 .cellphone(userEntity.getCellphone())
+                .email(userEntity.getEmail())
                 .squad(userEntity.getSquad())
                 .role(userEntity.getRole())
                 .linkedin(userEntity.getLinkedin())

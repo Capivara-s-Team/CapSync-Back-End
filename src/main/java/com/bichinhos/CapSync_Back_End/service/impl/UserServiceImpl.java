@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +38,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserResponse getUserById(UUID id) {
-        return this.iUserRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User com" + id + "não encontrado"));
+        UserEntity userEntityFounded = this.iUserRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException("User com" + id + "não encontrado"));
+        return UserMapper.transformEntityToResponse(userEntityFounded);
     }
 
     @Override
@@ -71,6 +72,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteEntityById(UUID id) {
+        this.iUserRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException("User do ID " + id + " não encontrado."));
         this.iUserRepository.deleteById(id);
     }
 
