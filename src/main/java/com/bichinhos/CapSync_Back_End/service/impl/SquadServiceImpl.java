@@ -23,6 +23,12 @@ public class SquadServiceImpl implements ISquadService {
     @Override
     public SquadResponse createSquad(SquadRequest squadRequest) {
 
+        Optional<SquadEntity> squadOptional = iSquadRepository.findByName(squadRequest.name());
+
+        if (squadOptional.isPresent()){
+            throw new RuntimeException("Stack already exists");
+        }
+
         SquadEntity squad = SquadMapper.transformRequestToEntity(squadRequest);
         SquadEntity squadSaved = iSquadRepository.save(squad);
 
