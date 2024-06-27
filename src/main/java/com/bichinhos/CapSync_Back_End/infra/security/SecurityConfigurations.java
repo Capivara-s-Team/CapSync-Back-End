@@ -31,7 +31,6 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
-
                         .anyRequest().authenticated() // Qualquer outra rota será liberada quando estiver logado
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

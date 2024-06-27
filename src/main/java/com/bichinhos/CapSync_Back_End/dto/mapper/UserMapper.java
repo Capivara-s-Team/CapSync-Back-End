@@ -40,9 +40,4 @@ public class UserMapper {
                 .seniority(userEntity.getSeniority())
                 .build();
     }
-
-//    public static List<UserResponse> transformEntityToResponse(List<UserEntity> userEntityList){
-//        return Stream.of(userEntityList).map()
-//
-//    }
 }

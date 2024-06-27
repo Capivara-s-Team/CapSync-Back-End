@@ -4,10 +4,12 @@ import com.bichinhos.CapSync_Back_End.dto.mapper.UserMapper;
 import com.bichinhos.CapSync_Back_End.dto.request.UserRequest;
 import com.bichinhos.CapSync_Back_End.dto.response.UserResponse;
 import com.bichinhos.CapSync_Back_End.entity.UserEntity;
+import com.bichinhos.CapSync_Back_End.exception.EntityNotFoundException;
 import com.bichinhos.CapSync_Back_End.repository.IUserRepository;
 import com.bichinhos.CapSync_Back_End.service.IUserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +32,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<UserEntity> getAllUsers(){
-        return this.iUserRepository.findAll();
+    public Page<UserResponse> getAllUsers(Pageable pageable){
+        Page<UserEntity> entities = this.iUserRepository.findAll(pageable);
+        return entities.map(UserMapper::transformEntityToResponse);
     }
 
     @Override
-    public Optional<UserEntity> getUserById(UUID id) {
-        return this.iUserRepository.findById(id);
+    public UserResponse getUserById(UUID id) {
+        return this.iUserRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User com" + id + "não encontrado"));
     }
 
     @Override
