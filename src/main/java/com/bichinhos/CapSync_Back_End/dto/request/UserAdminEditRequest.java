@@ -7,7 +7,7 @@ public record UserAdminEditRequest(
 
         Status status,
 
-        Role roleDesired
+        Role role
 
         //todo:Colocar a Squad
 )

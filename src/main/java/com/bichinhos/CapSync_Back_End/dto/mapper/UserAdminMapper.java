@@ -35,7 +35,7 @@ public class UserAdminMapper {
         public static UserEntity transformRequestToEntity(UserAdminEditRequest userAdminEditRequest){
         return UserEntity.builder()
                 .status(userAdminEditRequest.status())
-                .role(userAdminEditRequest.roleDesired())
+                .role(userAdminEditRequest.role())
                 .build();
     }
 }

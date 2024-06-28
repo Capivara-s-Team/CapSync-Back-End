@@ -12,13 +12,13 @@ import static com.bichinhos.CapSync_Back_End.enumFields.Status.ATIVO;
 
 @Configuration
 @Component
-public class AdminSeed implements CommandLineRunner {
+public class DataBaseSeed implements CommandLineRunner {
 
         private final IUserRepository iUserRepository;
 
         PasswordEncoder passwordEncoder;
 
-        public AdminSeed(IUserRepository iUserRepository, PasswordEncoder passwordEncoder) {
+        public DataBaseSeed(IUserRepository iUserRepository, PasswordEncoder passwordEncoder) {
             this.iUserRepository = iUserRepository;
             this.passwordEncoder = passwordEncoder;
         }
@@ -35,13 +35,23 @@ public class AdminSeed implements CommandLineRunner {
                 admin.setName("Rannah");
                 admin.setEmail("rannah@gmail.com");
                 admin.setPassword(passwordEncoder.encode("Rannah123456*"));
-                admin.setCellphone("rannah@gmail.com");
                 admin.setDiscord("Rannah#1234");
                 admin.setCellphone("+55 11 99543 5698");
-                admin.setRole(admin.getRole());
+                admin.setRole(admin.getRole().ADMIN);
                 admin.setLinkedin("www.linkedin.com/in/rannah");
                 admin.setStatus(ATIVO);
 
+                UserEntity member = new UserEntity();
+                member.setName("Gustavo");
+                member.setEmail("gustavo@gmail.com");
+                member.setPassword(passwordEncoder.encode("Gu3214596*"));
+                member.setCellphone("+55 11 99543 9876");
+                member.setDiscord("Gustavo#2212");
+                member.setRole(admin.getRole().MEMBRO);
+                member.setLinkedin("www.linkedin.com/in/gustavo");
+                member.setStatus(ATIVO);
+
+                this.iUserRepository.save(member);
                 this.iUserRepository.save(admin);
 
                 System.out.println("Database has been seeded");
