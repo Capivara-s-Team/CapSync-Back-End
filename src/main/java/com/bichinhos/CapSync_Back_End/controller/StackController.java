@@ -18,21 +18,21 @@ import java.net.URI;
 public class StackController {
 
     private final StackServiceImpl stackService;
-
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping
     public ResponseEntity<Page<StackResponse>> getAllStacks(Pageable pageable){
 
         Page<StackResponse> users = stackService.getAllStacks(pageable);
         return ResponseEntity.ok(users);
     }
-
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<StackResponse> getStackById(@PathVariable(value = "id") Long id){
 
         StackResponse user = stackService.getStackById(id);
         return ResponseEntity.ok(user);
     }
-
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<Void> saveStack(@RequestBody @Valid StackRequest stackRequest){
 
@@ -40,7 +40,7 @@ public class StackController {
 
         return ResponseEntity.created(URI.create("/users/" + stackResponse.id())).build();
     }
-
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PutMapping("/{id}")
     public ResponseEntity<StackResponse> updateStack(@PathVariable(name = "id") Long id, @RequestBody StackRequest stackRequest) {
 
@@ -48,7 +48,7 @@ public class StackController {
 
         return ResponseEntity.ok(stackResponse);
     }
-
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStackById(@PathVariable(value = "id") Long id){
 
