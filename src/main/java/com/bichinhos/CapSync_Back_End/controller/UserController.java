@@ -1,13 +1,17 @@
 package com.bichinhos.CapSync_Back_End.controller;
 
 
-import com.bichinhos.CapSync_Back_End.dto.request.UserRequest;
+import com.bichinhos.CapSync_Back_End.dto.request.UserAdminEditRequest;
+import com.bichinhos.CapSync_Back_End.dto.request.UserProfileRequest;
+import com.bichinhos.CapSync_Back_End.dto.request.UserSignUpRequest;
 import com.bichinhos.CapSync_Back_End.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -17,36 +21,35 @@ public class UserController {
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    @PostMapping
-    public ResponseEntity<?> saveUser(@RequestBody @Valid UserRequest userRequest){
-        return ResponseEntity.ok().body(this.userServiceImpl.createUser(userRequest));
+    @PostMapping("/register")
+    public ResponseEntity<?> saveUser(@RequestBody @Valid UserSignUpRequest userRequest){
+        this.userServiceImpl.createUser(userRequest);
+        return ResponseEntity.created(URI.create("user/register")).build();
     }
 
-    @GetMapping
-    public ResponseEntity<?> getUsers(){
-        // todo: criar um mapper que transforme a lista de usuarios retornada do banco em um objeto de resposta.
-        return ResponseEntity.ok().body(this.userServiceImpl.getAllUsers());
+    @GetMapping("/volunteers/adminView")
+    public ResponseEntity<?> getUsersByAdmin() {
+        return ResponseEntity.ok().body(this.userServiceImpl.getAllUsersByAdmin(Pageable.ofSize(5)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable(value = "id") UUID id){
         return ResponseEntity.ok(this.userServiceImpl.getUserById(id));
     }
-// todo: fazer a rota de patch
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> patchUserById(@PathVariable(value = "id") UUID id){
-//
-//    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateUserById(@PathVariable(value = "id") UUID id, @RequestBody UserRequest userRequest){
+    //todo: implementar as validações nos ENUMS
+    @PutMapping("volunteerProfile/adminView/{id}")
+    public ResponseEntity<?> updateVolunteerProfileByAdmin(@PathVariable(value = "id") UUID id, @RequestBody UserAdminEditRequest userAdminEditRequest){
+       return ResponseEntity.ok().body(this.userServiceImpl.updateVolunteerProfileByAdmin(id, userAdminEditRequest));
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateUserProfileById(@PathVariable(value = "id") UUID id, @RequestBody @Valid UserProfileRequest userProfileRequest){
         // todo: após a tabela de stacks estiver pronta, fazer a atualização de stacks e passar essa validação para mapper
-        return ResponseEntity.ok().body(this.userServiceImpl.updateEntityById(id, userRequest));
+        return ResponseEntity.ok().body(this.userServiceImpl.updateEntityById(id, userProfileRequest));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable(value = "id") UUID id){
         this.userServiceImpl.deleteEntityById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

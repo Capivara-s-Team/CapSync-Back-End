@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -36,6 +37,36 @@ public class HandleErrors {
         problemDetail.setProperty("timeStamp", LocalDateTime.now());
         problemDetail.setProperty("errors", fieldErrorsMap);
 
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ProblemDetail handleEntityNotFound(EntityNotFoundException error, HttpServletRequest request){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, error.getMessage());
+        problemDetail.setTitle("Usuario não encontrado");
+        problemDetail.setProperty("timeStamp", LocalDateTime.now());
+        problemDetail.setType(URI.create("errors/user-not-found"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ProblemDetail handleUUIDInvalid(MethodArgumentTypeMismatchException error, HttpServletRequest request){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, error.getMessage());
+        problemDetail.setTitle("UUID invalido");
+        problemDetail.setProperty("timeStamp", LocalDateTime.now());
+        problemDetail.setType(URI.create("errors/invalid-UUID"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EntityAlreadyExists.class)
+    public ProblemDetail handleUserWhoExists(EntityAlreadyExists error, HttpServletRequest request){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, error.getMessage());
+        problemDetail.setTitle("Usuario ja existente");
+        problemDetail.setProperty("timeStamp", LocalDateTime.now());
+        problemDetail.setType(URI.create("errors/user-already-exists"));
         return problemDetail;
     }
 }
