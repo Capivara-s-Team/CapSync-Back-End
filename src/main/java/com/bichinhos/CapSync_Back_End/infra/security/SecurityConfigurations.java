@@ -31,6 +31,8 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/volunteerProfile/adminView/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/user/volunteers/adminView").hasRole("ADMIN")
                         .anyRequest().authenticated() // Qualquer outra rota será liberada quando estiver logado
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

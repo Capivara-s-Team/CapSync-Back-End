@@ -60,6 +60,20 @@ public class UserEntity implements UserDetails {
 
     private String autoRacialDeclaration;
 
+    private String disability;
+
+    private Boolean hasDisability;
+
+    private String firstOptionSquad;
+
+    private String secondOptionSquad;
+
+    private String reasonToBeVolunteer;
+
+    private String meaningOfVolunteerWork;
+
+    private Role roleDesired;
+
     private Status status;
 
     private Gender gender;
@@ -75,10 +89,10 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Role.ADMIN) {
-            return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("MEMBER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_MEMBRO"));
         }
         else{
-            return List.of(new SimpleGrantedAuthority("MEMBER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_MEMBRO"));
         }
     }
 

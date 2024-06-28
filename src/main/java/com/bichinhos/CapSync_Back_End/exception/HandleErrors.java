@@ -44,7 +44,7 @@ public class HandleErrors {
     public ProblemDetail handleEntityNotFound(EntityNotFoundException error, HttpServletRequest request){
         ProblemDetail problemDetail = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, error.getMessage());
-        problemDetail.setTitle("Not Found Exception");
+        problemDetail.setTitle("Usuario não encontrado");
         problemDetail.setProperty("timeStamp", LocalDateTime.now());
         problemDetail.setType(URI.create("errors/user-not-found"));
         return problemDetail;
@@ -57,6 +57,16 @@ public class HandleErrors {
         problemDetail.setTitle("UUID invalido");
         problemDetail.setProperty("timeStamp", LocalDateTime.now());
         problemDetail.setType(URI.create("errors/invalid-UUID"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EntityAlreadyExists.class)
+    public ProblemDetail handleUserWhoExists(EntityAlreadyExists error, HttpServletRequest request){
+        ProblemDetail problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, error.getMessage());
+        problemDetail.setTitle("Usuario ja existente");
+        problemDetail.setProperty("timeStamp", LocalDateTime.now());
+        problemDetail.setType(URI.create("errors/user-already-exists"));
         return problemDetail;
     }
 }

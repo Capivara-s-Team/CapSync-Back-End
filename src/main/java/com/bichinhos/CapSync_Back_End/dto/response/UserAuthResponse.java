@@ -1,3 +1,8 @@
 package com.bichinhos.CapSync_Back_End.dto.response;
 
-public record UserAuthResponse (String token){}
+import lombok.Builder;
+
+import java.util.UUID;
+
+@Builder
+public record UserAuthResponse (UUID id, String token){}

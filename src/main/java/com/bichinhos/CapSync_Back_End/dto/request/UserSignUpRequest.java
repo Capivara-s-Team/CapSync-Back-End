@@ -4,18 +4,15 @@ import com.bichinhos.CapSync_Back_End.enumFields.Gender;
 import com.bichinhos.CapSync_Back_End.enumFields.Role;
 import com.bichinhos.CapSync_Back_End.enumFields.Seniority;
 import com.bichinhos.CapSync_Back_End.utils.Regex;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 
-public record UserRequest (
+public record UserSignUpRequest(
 
-    @Size(min = 5, max = 60, message = "o nome não pode ter menos que 5 caracteres ou mais que 60")
+    @Size(min = 2, max = 60, message = "o nome não pode ter menos que 5 caracteres ou mais que 60")
     @NotBlank
     String name,
-    @Size(min =  5, max = 60, message = "o sobrenome não pode ter menos que 5 caracteres ou mais que 60")
+    @Size(min =  2, max = 60, message = "o sobrenome não pode ter menos que 5 caracteres ou mais que 60")
     @NotBlank
     String surname,
     @Email
@@ -37,16 +34,28 @@ public record UserRequest (
     @NotBlank
     @Pattern(regexp = Regex.DISCORD, message = "O padrão de nome de usuario do Discord deve ser como 'Nome do usuario#1234'")
     String discord,
-    @Pattern(regexp = Regex.ASSETS_PATHS,
-            message = "O caminho para a foto deve seguir o padrão de src/assets/'nome da pessoa', as extensões aceitas são, svg ou png ou jpeg, não aceitamos simbolos no nome das fotos")
-    String userPhoto,
     @NotBlank
     String autoRacialDeclaration,
-
+    //todo: Desacoplar os atributos abaixo para uma nova entidade no banco
+    @Size(min = 5, max = 60, message = "O campo de deficiencia deve ter pelo menos uma deficiencia.")
+    String disability,
+    @NotNull
+    Boolean hasDisability,
+    @NotBlank
+    @Size(min = 5, max = 60, message = "O campo deve ter mais que um caractere")
+    String firstOptionSquad,
+    @NotBlank
+    @Size(min = 5, max = 60, message = "O campo deve ter mais que um caractere")
+    String secondOptionSquad,
+    @NotBlank
+    @Size(min = 5, max = 60, message = "O campo deve ter mais que um caractere")
+    String reasonToBeVolunteer,
+    @NotBlank
+    @Size(min = 5, max = 60, message = "O campo deve ter mais que um caractere")
+    String meaningOfVolunteerWork,
+    //todo: tratar esses ENUMS abaixo para um requisição errada
+    Role roleDesired,
     Gender gender,
-
-    Seniority seniority,
-
-    Role role
+    Seniority seniority
 
 ){}
