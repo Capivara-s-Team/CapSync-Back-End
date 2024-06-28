@@ -14,32 +14,32 @@ public record UserSignUpResponse (
 
     String email,
 
-    String password,
+    String password
 
-    String cellphone,
-
-    String squad,
-
-    String linkedin,
-
-    String discord,
-
-    String autoRacialDeclaration,
-    //todo: Desacoplar os atributos abaixo para uma nova entidade no banco
-    String disability,
-
-    Boolean hasDisability,
-    String firstOptionSquad,
-
-    String secondOptionSquad,
-
-    String reasonToBeVolunteer,
-
-    String meaningOfVolunteerWork,
-
-    Role roleDesired,
-
-    Gender gender,
-
-    Seniority seniority
+//    String cellphone,
+//
+//    String squad,
+//
+//    String linkedin,
+//
+//    String discord,
+//
+//    String autoRacialDeclaration,
+//    //todo: Desacoplar os atributos abaixo para uma nova entidade no banco
+//    String disability,
+//
+//    Boolean hasDisability,
+//    String firstOptionSquad,
+//
+//    String secondOptionSquad,
+//
+//    String reasonToBeVolunteer,
+//
+//    String meaningOfVolunteerWork,
+//
+//    Role roleDesired,
+//
+//    Gender gender,
+//
+//    Seniority seniority
 ){}

@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public HttpStatus createUser(UserSignUpRequest userRequest){
-        Optional<UserEntity> userEncouteredByDiscord = this.iUserRepository.findByDiscord(userRequest.discord());
+        Optional<UserEntity> userEncouteredByDiscord = this.iUserRepository.findByName(userRequest.name());
         if (userEncouteredByDiscord.isPresent()){
             throw new EntityAlreadyExists("Usuario ja existe");
         }

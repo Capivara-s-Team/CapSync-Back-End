@@ -15,6 +15,6 @@ public interface IUserRepository extends JpaRepository<UserEntity, UUID> {
     UserDetails findByEmail(String email);
     @Query("SELECT u FROM UserEntity u WHERE u.email = :email")
     UserEntity findByEmailToGetEntity(@Param("email") String email);
-    @Query("SELECT u FROM UserEntity u WHERE u.discord = :discord")
-    Optional<UserEntity> findByDiscord(@Param("discord") String discord);
+    @Query("SELECT u FROM UserEntity u WHERE u.name = :name")
+    Optional<UserEntity> findByName(@Param("name") String name);
 }
