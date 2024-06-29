@@ -31,8 +31,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public HttpStatus createUser(UserSignUpRequest userRequest){
-        Optional<UserEntity> userEncouteredByDiscord = this.iUserRepository.findByName(userRequest.name());
-        if (userEncouteredByDiscord.isPresent()){
+        Optional<UserEntity> userEncouteredByEmail = this.iUserRepository.findByEmailEntity(userRequest.email());
+        if (userEncouteredByEmail.isPresent()){
             throw new EntityAlreadyExists("Usuario ja existe");
         }
         UserEntity userEntity = UserSignUpMapper.transformRequestToEntity(userRequest);
@@ -40,7 +40,6 @@ public class UserServiceImpl implements IUserService {
         this.iUserRepository.save(userEntity);
         return HttpStatus.CREATED;
     }
-
 
     @Override
     public UserAdminResponse updateVolunteerProfileByAdmin(UUID id, UserAdminEditRequest userAdminEditRequest) {

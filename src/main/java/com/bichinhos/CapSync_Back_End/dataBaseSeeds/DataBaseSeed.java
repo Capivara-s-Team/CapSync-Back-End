@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import static com.bichinhos.CapSync_Back_End.enumFields.Seniority.SENIOR;
 import static com.bichinhos.CapSync_Back_End.enumFields.Status.ATIVO;
 
 @Configuration
@@ -39,6 +40,8 @@ public class DataBaseSeed implements CommandLineRunner {
                 admin.setCellphone("+55 11 99543 5698");
                 admin.setRole(admin.getRole().ADMIN);
                 admin.setLinkedin("www.linkedin.com/in/rannah");
+                admin.setSquad("FRONT-END");
+                admin.setSeniority(SENIOR);
                 admin.setStatus(ATIVO);
 
                 UserEntity member = new UserEntity();
@@ -49,6 +52,8 @@ public class DataBaseSeed implements CommandLineRunner {
                 member.setDiscord("Gustavo#2212");
                 member.setRole(admin.getRole().MEMBRO);
                 member.setLinkedin("www.linkedin.com/in/gustavo");
+                member.setSquad("BACK-END");
+                member.setSeniority(SENIOR);
                 member.setStatus(ATIVO);
 
                 this.iUserRepository.save(member);
