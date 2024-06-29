@@ -26,9 +26,14 @@ git clone https://github.com/Capivara-s-Team/CapSync-Back-End.git
 
 • Certifique que o docker também esteja instalado executando o comando ```docker --version``` caso esteja no windows. Verifique o comando para checar a versão do docker de acordo com seu sistema operacional.
 
+## Contribuidores 🙎🏻‍♂️
+Back End | Gustavo Serafio - Yuri Sena - Claudio Netto - Jorge Lima
+Front End | Navarro - Isabella - Pierre
+QA | Rosana e o Giliard
+
 ## License 📃
 
 This project is under MIT license
 
-## Contribuidores 🙎🏻‍♂️
+
 
